@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.IO;
 // dotnet add package MySql.Data
 using MySql.Data;
 using MySql.Data.MySqlClient;
@@ -10,10 +10,10 @@ namespace BG_library
     {
         static void Main(string[] args)
         {
-            string connString = "server=localhost;port=3306;database=BG_library;user=vitamonta;password=123";
+            string connString = File.ReadAllText("connectionString.txt");
             MySqlConnection conn = new MySqlConnection(connString);
 
-            
+           
             try
             {
                 conn.Open();

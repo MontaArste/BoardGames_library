@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="IronXL.Excel" Version="2020.12.2" />
     <PackageReference Include="MySql.Data" Version="8.0.24" />
   </ItemGroup>
 

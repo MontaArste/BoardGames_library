@@ -1,6 +1,6 @@
 
 
-namespace fileReader.Entities
+namespace BG_library.Entities
 {
     class GameInUse
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
-using fileReader.Entities;
-using fileReader.Services;
+using BG_library.Entities;
+using BG_library.Services;
 // dotnet add package MySql.Data
 using MySql.Data;
 using MySql.Data.MySqlClient;

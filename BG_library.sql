@@ -1,0 +1,65 @@
+DROP DATABASE IF EXISTS BG_library;
+CREATE SCHEMA IF NOT EXISTS BG_library DEFAULT CHARACTER SET utf8;
+USE BG_library;
+
+CREATE TABLE IF NOT EXISTS BG_library.users (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `surname` VARCHAR(45) NULL,
+  `telephoneNumber` VARCHAR(45) NULL,
+  `email` VARCHAR(45) NULL,
+  `registration_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS BG_library.category (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `categoryName` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS BG_library.games (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `gameName` VARCHAR(100) NOT NULL COMMENT 'The name of  board game',
+  `availability` TINYINT NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS BG_library.gameCategory (
+  `gameiD` INT UNSIGNED NOT NULL,
+  `categoryiD` INT UNSIGNED NOT NULL,
+  INDEX `gameiD_idx` (`gameiD` ASC) VISIBLE,
+  INDEX `categoryiD_idx` (`categoryiD` ASC) VISIBLE,
+  PRIMARY KEY (`gameiD`, `categoryiD`),
+  CONSTRAINT `gameiD`
+    FOREIGN KEY (`gameiD`)
+    REFERENCES BG_library.games (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `categoryiD`
+    FOREIGN KEY (`categoryiD`)
+    REFERENCES BG_library.category (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS BG_library.gamesInUse (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `gameID` INT UNSIGNED NOT NULL,
+  `userID` INT UNSIGNED NOT NULL,
+  `timeToken` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `timeReturned` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  INDEX `taken_idx` (`gameID` ASC) VISIBLE,
+  INDEX `user_idx` (`userID` ASC) VISIBLE,
+  CONSTRAINT `usedGame`
+    FOREIGN KEY (`gameID`)
+    REFERENCES BG_library.games (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `user`
+    FOREIGN KEY (`userID`)
+    REFERENCES BG_library.users (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;

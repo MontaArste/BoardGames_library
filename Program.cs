@@ -1,4 +1,7 @@
 ﻿using System;
+using System.IO;
+using IronXL;
+using System.Linq;
 
 // dotnet add package MySql.Data
 using MySql.Data;
@@ -8,9 +11,9 @@ namespace BG_library
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            string connString = "server=localhost;port=3306;database=BG_library;user=vitamonta;password=123";
+            string connString = File.ReadAllText("connectionString.txt");
             MySqlConnection conn = new MySqlConnection(connString);
 
             
@@ -26,16 +29,16 @@ namespace BG_library
 
             MySqlCommand cmd;
 
-            cmd = new MySqlCommand("INSERT INTO category (`categoryName`) VALUES ('classical'), ('party')", conn);
-            cmd.ExecuteNonQuery(); // non-query for INSERT, UPDATE, DELETE and others that do not return dataset.
+            //cmd = new MySqlCommand("INSERT INTO category (`categoryName`) VALUES ('classical'), ('party')", conn);
+            //cmd.ExecuteNonQuery(); // non-query for INSERT, UPDATE, DELETE and others that do not return dataset.
             cmd = new MySqlCommand("SELECT * FROM category",conn);
             using (MySqlDataReader reader = cmd.ExecuteReader())
             {while (reader.Read())
             {string name = (string) reader[1];
             Console.WriteLine("category: " + name);}}
             
-            cmd = new MySqlCommand("DELETE FROM category WHERE id = 1", conn);
-            cmd.ExecuteNonQuery();
+            //cmd = new MySqlCommand("DELETE FROM category WHERE id = 1", conn);
+            //cmd.ExecuteNonQuery();
 
             cmd = new MySqlCommand("SELECT * FROM category",conn);
             using (MySqlDataReader reader = cmd.ExecuteReader())

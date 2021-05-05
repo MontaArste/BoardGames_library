@@ -37,14 +37,15 @@ namespace BG_library
             {string name = (string) reader[1];
             Console.WriteLine("category: " + name);}}
             
+            //cmd = new MySqlCommand("SELECT LOCATE('gameToSearch', 'foreach game in') AS MatchPosition;",conn);
             //cmd = new MySqlCommand("DELETE FROM category WHERE id = 1", conn);
             //cmd.ExecuteNonQuery();
-
-            cmd = new MySqlCommand("SELECT * FROM category",conn);
+            cmd = new MySqlCommand("SELECT * FROM category WHERE categoryName LIKE '%par%'",conn);
             using (MySqlDataReader reader = cmd.ExecuteReader())
             {while (reader.Read())
             {string name = (string) reader[1];
             Console.WriteLine("category: " + name);}}
+                      
             conn.Close();
         }
     }

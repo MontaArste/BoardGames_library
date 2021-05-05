@@ -1,1 +1,0 @@
-server=localhost;port=3306;database=BG_library;user=vitamonta;password=123

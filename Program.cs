@@ -3,6 +3,7 @@ using System.IO;
 using BG_library.Entities;
 using BG_library.Services;
 
+
 // dotnet add package MySql.Data
 using MySql.Data;
 using MySql.Data.MySqlClient;
@@ -26,15 +27,21 @@ namespace BG_library
                 {
                     while (reader.Read())
                     {
-                        var category = new Category() {
-                            Id = (uint)reader[0], 
-                            categoryName = reader[1].ToString() };
+                        var category = new Category()
+                        {
+                            Id = (uint)reader[0],
+                            categoryName = reader[1].ToString()
+                        };
                         Console.WriteLine(category.ToString());
                     }
                 }
-                Game gameToAdd = new Game(){gameName = "The Moon", availability = 1};
-               
-                GameService.AddGame(gameToAdd);
+                Game gameToAdd = new Game() { gameName = "The Moon", availability = 1 };
+
+                //GameService.AddGame(gameToAdd);
+
+                GameService.TakeGame(2, 25);
+                GameService.TakeGame(5, 23);
+
             }
             catch (MySqlException e)
             {

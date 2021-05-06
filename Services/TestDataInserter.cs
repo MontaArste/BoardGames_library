@@ -53,7 +53,7 @@ namespace BG_library.Services
             var workSheet = workBook.GetWorkSheet("GameInUse");
             var range = workSheet.GetRange("A2:B11");
 
-           
+
 
             foreach (var row in range.Rows)
             {
@@ -123,8 +123,8 @@ namespace BG_library.Services
             foreach (var row in range.Rows)
             {
                 Game game = new Game();
-                game.gameName = row.Columns[0].ToString();
-                game.availability = row.Columns[1].ToString();
+                game.gameName = row.Columns[0].StringValue;
+                game.availability = row.Columns[1].IntValue;
 
                 Console.WriteLine(game.ToString());
 

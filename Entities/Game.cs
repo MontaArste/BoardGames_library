@@ -1,10 +1,10 @@
 
 namespace BG_library.Entities
 {
-    class Game
+   public class Game
     {
         public string gameName { get; set; }
-        public string availability { get; set; }
+        public int availability { get; set; }
 
 
         public override string ToString()

@@ -2,6 +2,7 @@
 using System.IO;
 using BG_library.Entities;
 using BG_library.Services;
+
 // dotnet add package MySql.Data
 using MySql.Data;
 using MySql.Data.MySqlClient;
@@ -31,6 +32,9 @@ namespace BG_library
                         Console.WriteLine(category.ToString());
                     }
                 }
+                Game gameToAdd = new Game(){gameName = "The Moon", availability = 1};
+               
+                GameService.AddGame(gameToAdd);
             }
             catch (MySqlException e)
             {

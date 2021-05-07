@@ -35,13 +35,6 @@ namespace BG_library
                         Console.WriteLine(category.ToString());
                     }
                 }
-                Game gameToAdd = new Game() { gameName = "The Moon", availability = 1 };
-
-                //GameService.AddGame(gameToAdd);
-
-                GameService.TakeGame(2, 25);
-                GameService.TakeGame(5, 23);
-
             }
             catch (MySqlException e)
             {

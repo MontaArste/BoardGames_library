@@ -50,7 +50,16 @@ namespace BG_library.Services
                     reader.Read();
 
                     var available = reader.GetValue(0);
-                    return available.Equals(true) ? true : false;
+                    if (available.Equals(true))
+                    {
+                        Console.WriteLine("This game is available.");
+                        return true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Sorry, this game is not available!");
+                        return false;
+                    }
                 }
             }
 
@@ -76,21 +85,16 @@ namespace BG_library.Services
                     cmd = new MySqlCommand($"UPDATE games SET `availability` = '0' WHERE `id` = {gameId}", conn);
                     cmd.ExecuteNonQuery();
                     conn.Close();
-                    Console.WriteLine("The game is available.");
+                    Console.WriteLine("You can use the game for 30 days. Have fun!");
                     return true;
                 }
-                else
-                {
-                     Console.WriteLine("The game is available.");
-                    return false;
-                }
+                return false;
             }
             catch (MySqlException e)
             {
                 Console.WriteLine(e.Message);
                 return false;
             }
-            // remember about timestamps
         }
 
         public static bool ReturnGame(uint userId, uint gameId)

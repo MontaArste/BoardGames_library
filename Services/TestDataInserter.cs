@@ -2,11 +2,11 @@
 
 using System;
 using System.IO;
-using fileReader.Entities;
+using BG_library.Entities;
 using IronXL;
 using MySql.Data.MySqlClient;
 
-namespace fileReader.Services
+namespace BG_library.Services
 {
     public static class TestDataInserter
     {

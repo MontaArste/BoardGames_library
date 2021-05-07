@@ -1,8 +1,8 @@
 
 
-namespace fileReader.Entities
+namespace BG_library.Entities
 {
-    class User
+    public class User
     {
         public string Name { get; set; }
 

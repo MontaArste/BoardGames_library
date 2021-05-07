@@ -1,7 +1,7 @@
 
-namespace fileReader.Entities
+namespace BG_library.Entities
 {
-    class Game
+    public class Game
     {
         public string gameName { get; set; }
         public string availability { get; set; }

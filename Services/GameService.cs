@@ -49,13 +49,16 @@ namespace BG_library.Services
                     {
                         string gname = (string)reader[1];
                         sbyte avail = (sbyte)reader[2];
+                                              
                         bool isAvailable = true;
                         if (avail == (sbyte)0)
                         {
                             isAvailable = false;
+                
                         }
                         Console.Write("Found game: "+ gname + " , availability: ");
                         Console.WriteLine(isAvailable ? "available" : "not available");
+                        
                     }
                 }
                 conn.Close();

@@ -46,6 +46,8 @@ namespace BG_library
             GameService.SearchGameByName("oo");
             //CategoryService.SearchCategory("par");
             UserService.SearchUserByName("Melisa");
+            User user = new User("Māris", "Čaklais");
+            UserService.AddUser(user);
             
 
 

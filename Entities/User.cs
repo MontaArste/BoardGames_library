@@ -8,6 +8,19 @@ namespace BG_library.Entities
 
         public string Surname { get; set; }
 
+        public User (string Name, string Surname)
+        {
+            this.Name = Name;
+            this.Surname = Surname;
+        }
+
+        public User()            
+        {
+            Name = "John";
+            Surname = "Gray";
+        }
+
+
         public override string ToString()
         {
             return Name + " " + Surname;

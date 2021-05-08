@@ -15,8 +15,23 @@ namespace BG_library.Services
     {
         public static bool AddUser(User user)
         {
-            throw new NotImplementedException();
-            // return true ja sanaak, false ja nesanaak
+            string connString = File.ReadAllText("connectionString.txt");
+            MySqlConnection conn = new MySqlConnection(connString);
+            MySqlCommand cmd;
+            try
+            {
+                conn.Open();
+                cmd = new MySqlCommand(@$"INSERT INTO users(`name`, `surname`) 
+                                        VALUES ('{user.Name}', '{user.Surname}')", conn);
+                cmd.ExecuteNonQuery();
+                conn.Close();
+                return true;
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
         }
 
         public static void SearchUserByName(string name)

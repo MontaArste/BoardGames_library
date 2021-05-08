@@ -11,7 +11,26 @@ namespace BG_library.Services
 {
     public static class GameService
     {
-        public static bool AddGame(Game game)
+        public static void AddGameCategory(uint gameId, uint categoryId)
+        {
+            string connString = File.ReadAllText("connectionString.txt");
+            MySqlConnection conn = new MySqlConnection(connString);
+            MySqlCommand cmd;
+            try
+            {
+                conn.Open();
+                cmd = new MySqlCommand($"INSERT INTO gamecategory (`gameID`, `categoryID`) VALUE ('{gameId}','{categoryId}')", conn);
+                cmd.ExecuteNonQuery();
+                conn.Close();
+                Console.WriteLine("The game category has been successfully added.");
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    
+        public static bool AddGame(Game game, uint categoryId)
         {
             string connString = File.ReadAllText("connectionString.txt");
             MySqlConnection conn = new MySqlConnection(connString);
@@ -21,7 +40,18 @@ namespace BG_library.Services
                 conn.Open();
                 cmd = new MySqlCommand($"INSERT INTO games (`gameName`, `availability`) VALUES ('{game.gameName}', 1)", conn);
                 cmd.ExecuteNonQuery();
+                uint newGameId;
+                cmd = new MySqlCommand($"SELECT `id` FROM games WHERE `gameName`='{game.gameName}'", conn);
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    reader.Read();
+                    newGameId = (uint)reader.GetValue(0);
+                    Console.WriteLine(newGameId);
+                }
+                Console.WriteLine($"The game {game.gameName} has been successfully added to catalog!");
+                AddGameCategory(newGameId, categoryId);
                 conn.Close();
+               
                 return true;
             }
             catch (MySqlException e)

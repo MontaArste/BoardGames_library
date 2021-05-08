@@ -30,7 +30,7 @@ namespace BG_library.Services
                 return false;
             }
         }
-
+        
         public static Game SearchGameByName(string name)
         {
             throw new NotImplementedException();
@@ -99,8 +99,36 @@ namespace BG_library.Services
 
         public static bool ReturnGame(uint userId, uint gameId)
         {
-            throw new NotImplementedException();
-            // remember about timestamps
+            string connString = File.ReadAllText("connectionString.txt");
+            MySqlConnection conn = new MySqlConnection(connString);
+            MySqlCommand cmd;
+            uint isNotReturned;
+            try
+            {
+                conn.Open();
+                cmd = new MySqlCommand($"SELECT `id` FROM gamesinuse WHERE `gameID`={gameId} AND `userID`={userId} AND`timeReturned`IS null",conn);                
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                    
+                {
+                    reader.Read();
+                    isNotReturned = (uint)reader.GetValue(0);
+
+                    Console.WriteLine($"{isNotReturned}");
+                    
+                }
+                cmd = new MySqlCommand($"UPDATE gamesinuse SET `timeReturned`='{DateTime.Now.ToString("yyyy-MM-dd")}' WHERE `id`={isNotReturned}", conn);
+                cmd.ExecuteNonQuery();
+                cmd = new MySqlCommand($"UPDATE games SET `availability` = '1' WHERE `id` = {gameId}", conn);
+                cmd.ExecuteNonQuery();
+                conn.Close();
+                Console.WriteLine("The game is available again.");
+                return true;
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
         }
     }
 }

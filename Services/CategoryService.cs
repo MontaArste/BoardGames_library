@@ -14,6 +14,7 @@ namespace BG_library.Services
     class CategoryService
     {
         public static bool AddCategory(Category category)
+        //add to category table new category
         {
             string connString = File.ReadAllText("connectionString.txt");
             MySqlConnection conn = new MySqlConnection(connString);
@@ -35,6 +36,7 @@ namespace BG_library.Services
         }
 
         public static void SearchCategory(string name)
+        //search category by name and print out on console founded categories
         {
             string connString = File.ReadAllText("connectionString.txt");
             MySqlConnection conn = new MySqlConnection(connString);
@@ -54,6 +56,7 @@ namespace BG_library.Services
                 conn.Close();
 
 
+
             }
             catch (MySqlException e)
             {
@@ -61,6 +64,36 @@ namespace BG_library.Services
                 return;
             }
 
+        }
+
+        public static bool LoadCategories()
+        //loads all categories
+        {
+            string connString = File.ReadAllText("connectionString.txt");
+            MySqlConnection conn = new MySqlConnection(connString);
+            MySqlCommand cmd;
+            try
+            {
+                conn.Open();
+                cmd = new MySqlCommand("SELECT * FROM category", conn);
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    
+                    while (reader.Read())
+                    {
+                        uint categoryId = (uint)reader[0];
+                        string categoryName = (string)reader[1];
+                        Console.WriteLine($" ID: {categoryId}, category: {categoryName}" );
+                    }
+                }
+                conn.Close();
+                return true;
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
         }
     }
 }

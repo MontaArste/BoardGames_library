@@ -14,11 +14,8 @@ namespace BG_library.Entities
             this.Surname = Surname;
         }
 
-        public User()            
-        {
-            Name = "John";
-            Surname = "Gray";
-        }
+        public User() {}           
+        
 
 
         public override string ToString()

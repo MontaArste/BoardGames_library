@@ -65,7 +65,7 @@ namespace BG_library.Services
             catch (MySqlException e)
             {
                 Console.WriteLine(e.Message);
-                //return e;
+                
             }
         }
     }

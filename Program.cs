@@ -12,7 +12,7 @@ namespace BG_library
     {
         static void Main(string[] args)
         {
-            //TestDataInserter.InsertTestData();
+            //TestDataInserter.InsertTestData();  //inserts data in database from excel document
 
             string connString = File.ReadAllText("connectionString.txt");
             MySqlConnection conn = new MySqlConnection(connString);
@@ -44,10 +44,10 @@ namespace BG_library
                        
             conn.Close();
             GameService.SearchGameByName("oo");
-            //CategoryService.SearchCategory("par");
-            UserService.SearchUserByName("Melisa");
-            User user = new User("Māris", "Čaklais");
-            UserService.AddUser(user);
+            CategoryService.SearchCategory("par");
+            UserService.SearchUserByName("mar");
+            //User user = new User("Māris", "Čaklais");
+            //UserService.AddUser(user);
             
 
 

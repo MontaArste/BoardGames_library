@@ -13,9 +13,25 @@ namespace BG_library.Services
 {
     class CategoryService
     {
-        public static bool AddCategory( Category category)
+        public static bool AddCategory(Category category)
         {
-            throw new NotImplementedException();
+            string connString = File.ReadAllText("connectionString.txt");
+            MySqlConnection conn = new MySqlConnection(connString);
+            MySqlCommand cmd;
+            try
+            {
+                conn.Open();
+                cmd = new MySqlCommand(@$"INSERT INTO category(`categoryName`) 
+                                        VALUES ('{category.categoryName}')", conn);
+                cmd.ExecuteNonQuery();
+                conn.Close();
+                return true;
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
         }
 
         public static void SearchCategory(string name)
@@ -36,15 +52,15 @@ namespace BG_library.Services
                     }
                 }
                 conn.Close();
-                
-                
+
+
             }
             catch (MySqlException e)
             {
                 Console.WriteLine(e.Message);
                 return;
             }
-            
+
         }
     }
 }

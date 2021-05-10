@@ -2,10 +2,18 @@
 
 namespace BG_library.Entities
 {
-    class Category
+    public class Category
     {
         public uint Id { get; set; }
         public string categoryName { get; set; }
+
+        public Category (string categoryName)
+        {
+            this.categoryName = categoryName;
+            
+        }
+
+        public Category() {} 
 
     
         public override string ToString()

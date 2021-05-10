@@ -1,6 +1,6 @@
 namespace BG_library.Entities
 {
-    class GameCategories
+    public class GameCategories
     {
         public string gameId { get; set; }
 

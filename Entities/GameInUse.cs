@@ -2,7 +2,7 @@
 
 namespace BG_library.Entities
 {
-    class GameInUse
+    public class GameInUse
     {
         public string gameId { get; set; }
 

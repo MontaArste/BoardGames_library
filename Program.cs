@@ -15,12 +15,14 @@ namespace BG_library
             //TestDataInserter.InsertTestData();  //inserts data in database from excel document
 
             
-            GameService.SearchGameByName("oo");
+            GameService.SearchGameByName("man");
             CategoryService.SearchCategory("par");
             UserService.SearchUserByName("mar");
             //User user = new User("Māris", "Čaklais");
             //UserService.AddUser(user);
-            CategoryService.LoadCategories();            
+            //CategoryService.LoadCategories(); 
+            //Game a = new Game("Riču raču");
+            //GameService.AddGame(a);           
 
 
            

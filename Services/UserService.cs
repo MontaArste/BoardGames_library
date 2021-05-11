@@ -54,10 +54,10 @@ namespace BG_library.Services
                         {
                             string userName = (string)reader[1];
                             string userSurname = (string)reader[2];
-                            DBNull userTelephoneNumbername = (DBNull)reader[3];
+                            DBNull userTelephoneNumber = (DBNull)reader[3];
                             DBNull userEmail = (DBNull)reader[4];
 
-                            Console.WriteLine($"Found user: {userName}; {userSurname}, {userTelephoneNumbername}, {userEmail}.");
+                            Console.WriteLine($"Found user: {userName}  {userSurname}  {userTelephoneNumber}  {userEmail}.");
                         }
                     }
                     else

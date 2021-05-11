@@ -31,7 +31,7 @@ namespace BG_library.Services
                 Console.WriteLine(e.Message);
             }
         }
-    
+
         public static bool AddGame(Game game, uint categoryId)
         {
             string connString = File.ReadAllText("connectionString.txt");
@@ -53,7 +53,7 @@ namespace BG_library.Services
                 Console.WriteLine($"The game {game.gameName} has been successfully added to catalog!");
                 AddGameCategory(newGameId, categoryId);
                 conn.Close();
-               
+
                 return true;
             }
             catch (MySqlException e)
@@ -74,20 +74,29 @@ namespace BG_library.Services
                 cmd = new MySqlCommand($"SELECT * FROM games WHERE gameName LIKE '%{name}%'", conn);
                 using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
-                    while (reader.Read())
+                    if (reader.HasRows)
                     {
-                        string gname = (string)reader[1];
-                        bool avail = (bool)reader[2];
-                                              
-                        bool isAvailable = true;
-                        if (avail == false)
                         {
-                            isAvailable = false;
-                
+                            while (reader.Read())
+                            {
+                                uint id = (uint)reader[0];
+                                string gname = (string)reader[1];
+                                bool avail = (bool)reader[2];
+
+                                bool isAvailable = true;
+                                if (avail == false)
+                                {
+                                    isAvailable = false;
+
+                                }
+                                Console.Write("Found game: " + gname + ", game ID: " + id + ", availability: ");
+                                Console.WriteLine(isAvailable ? "available" : "not available");
+                            }
                         }
-                        Console.Write("Found game: "+ gname + " , availability: ");
-                        Console.WriteLine(isAvailable ? "available" : "not available");
-                        
+                    }
+                    else
+                    {
+                        Console.WriteLine("Didn't find game according to the entered parameters. Keep searcing!");
                     }
                 }
                 conn.Close();
@@ -173,9 +182,9 @@ namespace BG_library.Services
             try
             {
                 conn.Open();
-                cmd = new MySqlCommand($"SELECT `id` FROM gamesinuse WHERE `gameID`={gameId} AND `userID`={userId} AND`timeReturned`IS null",conn);                
+                cmd = new MySqlCommand($"SELECT `id` FROM gamesinuse WHERE `gameID`={gameId} AND `userID`={userId} AND`timeReturned`IS null", conn);
                 using (MySqlDataReader reader = cmd.ExecuteReader())
-                    
+
                 {
                     reader.Read();
                     isNotReturned = (uint)reader.GetValue(0);

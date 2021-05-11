@@ -76,21 +76,22 @@ namespace BG_library.Services
                 {
                     if (reader.HasRows)
                     {
-                        while (reader.Read())
                         {
-                            uint id = (uint)reader[0];
-                            string gname = (string)reader[1];
-                            bool avail = (bool)reader[2];
-
-                            bool isAvailable = true;
-                            if (avail == false)
+                            while (reader.Read())
                             {
-                                isAvailable = false;
+                                uint id = (uint)reader[0];
+                                string gname = (string)reader[1];
+                                bool avail = (bool)reader[2];
 
+                                bool isAvailable = true;
+                                if (avail == false)
+                                {
+                                    isAvailable = false;
+
+                                }
+                                Console.Write("Found game: " + gname + ", game ID: " + id + ", availability: ");
+                                Console.WriteLine(isAvailable ? "available" : "not available");
                             }
-                            Console.Write("Found game: " + gname + ", game ID: " + id + ", availability: ");
-                            Console.WriteLine(isAvailable ? "available" : "not available");
-
                         }
                     }
                     else
@@ -187,9 +188,7 @@ namespace BG_library.Services
                 {
                     reader.Read();
                     isNotReturned = (uint)reader.GetValue(0);
-
-                    Console.WriteLine($"{isNotReturned}");
-
+                    
                 }
                 cmd = new MySqlCommand($"UPDATE gamesinuse SET `timeReturned`='{DateTime.Now.ToString("yyyy-MM-dd")}' WHERE `id`={isNotReturned}", conn);
                 cmd.ExecuteNonQuery();

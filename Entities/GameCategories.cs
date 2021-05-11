@@ -2,9 +2,9 @@ namespace BG_library.Entities
 {
     public class GameCategories
     {
-        public string gameId { get; set; }
+        public int gameId { get; set; }
 
-        public string categoryId { get; set; }
+        public int categoryId { get; set; }
 
         public override string ToString()
         {

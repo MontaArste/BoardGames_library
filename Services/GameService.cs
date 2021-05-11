@@ -77,10 +77,10 @@ namespace BG_library.Services
                     while (reader.Read())
                     {
                         string gname = (string)reader[1];
-                        sbyte avail = (sbyte)reader[2];
+                        bool avail = (bool)reader[2];
                                               
                         bool isAvailable = true;
-                        if (avail == (sbyte)0)
+                        if (avail == false)
                         {
                             isAvailable = false;
                 
@@ -179,8 +179,6 @@ namespace BG_library.Services
                 {
                     reader.Read();
                     isNotReturned = (uint)reader.GetValue(0);
-
-                    Console.WriteLine($"{isNotReturned}");
                     
                 }
                 cmd = new MySqlCommand($"UPDATE gamesinuse SET `timeReturned`='{DateTime.Now.ToString("yyyy-MM-dd")}' WHERE `id`={isNotReturned}", conn);

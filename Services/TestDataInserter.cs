@@ -61,11 +61,9 @@ namespace BG_library.Services
                 gameInUse.gameId = row.Columns[0].ToString();
                 gameInUse.userId = row.Columns[1].ToString();
 
-                Console.WriteLine(gameInUse.ToString());
-
                 MySqlCommand cmd;
 
-                cmd = new MySqlCommand($"INSERT INTO gamesInUse (`gameId`, `userId`) VALUES ('{gameInUse.gameId}', '{gameInUse.userId}')", conn);
+                cmd = new MySqlCommand($"INSERT INTO gamesInUse (`gameId`, `userId`,`timeTaken`) VALUES ('{gameInUse.gameId}','{gameInUse.userId}','{DateTime.Now.ToString("yyyy-MM-dd")}')", conn);
                 cmd.ExecuteNonQuery();
                 cmd = new MySqlCommand($"UPDATE games SET `availability` ='0' WHERE `id` = {gameInUse.gameId}", conn);
                 cmd.ExecuteNonQuery();
@@ -80,8 +78,8 @@ namespace BG_library.Services
             foreach (var row in range.Rows)
             {
                 GameCategories gameCategories = new GameCategories();
-                gameCategories.gameId = row.Columns[0].ToString();
-                gameCategories.categoryId = row.Columns[1].ToString();
+                gameCategories.gameId = row.Columns[0].IntValue;
+                gameCategories.categoryId = row.Columns[1].IntValue;
 
                 Console.WriteLine(gameCategories.ToString());
 

@@ -12,20 +12,23 @@ namespace BG_library
     {
         static void Main(string[] args)
         {
-            //TestDataInserter.InsertTestData();  //inserts data in database from excel document
+            TestDataInserter.InsertTestData();  //inserts data in database from excel document
 
-            
-            GameService.SearchGameByName("man");
-            CategoryService.SearchCategory("par");
-            UserService.SearchUserByName("mar");
+
+            //GameService.TakeGame(4,2);
+            //GameService.ReturnGame(4, 2);
+            //GameService.SearchGameByName("black");
+            //GameService.CheckGameAvailability(2);
+            //CategoryService.SearchCategory("action");
+            //UserService.SearchUserByName("mar");
             //User user = new User("Māris", "Čaklais");
             //UserService.AddUser(user);
             //CategoryService.LoadCategories(); 
-            //Game a = new Game("Riču raču");
-            //GameService.AddGame(a);           
+            // Game a = new Game("Riču raču");
+            // GameService.AddGame(a,2);           
 
 
-           
+
         }
     }
 }

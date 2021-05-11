@@ -47,16 +47,18 @@ namespace BG_library.Services
                 cmd = new MySqlCommand($"SELECT * FROM category WHERE categoryName LIKE '%{name}%'", conn);
                 using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
-                    while (reader.Read())
+                    if (reader.HasRows)
                     {
-                        string cname = (string)reader[1];
-                        Console.WriteLine($"Found category: {cname}");
+                        while (reader.Read())
+                        {
+                            string cname = (string)reader[1];
+                            Console.WriteLine($"Found category: {cname}");
+                        }
                     }
+                    else
+                    { Console.WriteLine("Didn't find category according to the entered parameters. Keep searcing!"); }
                 }
                 conn.Close();
-
-
-
             }
             catch (MySqlException e)
             {
@@ -78,12 +80,12 @@ namespace BG_library.Services
                 cmd = new MySqlCommand("SELECT * FROM category", conn);
                 using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
-                    
+
                     while (reader.Read())
                     {
                         uint categoryId = (uint)reader[0];
                         string categoryName = (string)reader[1];
-                        Console.WriteLine($" ID: {categoryId}, category: {categoryName}" );
+                        Console.WriteLine($" ID: {categoryId}, category: {categoryName}");
                     }
                 }
                 conn.Close();

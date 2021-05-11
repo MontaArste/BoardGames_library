@@ -48,15 +48,20 @@ namespace BG_library.Services
 
                 using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
-                    while (reader.Read())
+                    if (reader.HasRows)
                     {
-                        string userName = (string)reader[1];
-                        string userSurname = (string)reader[2];
-                        DBNull userTelephoneNumbername = (DBNull)reader[3];
-                        DBNull userEmail = (DBNull)reader[4];
+                        while (reader.Read())
+                        {
+                            string userName = (string)reader[1];
+                            string userSurname = (string)reader[2];
+                            DBNull userTelephoneNumbername = (DBNull)reader[3];
+                            DBNull userEmail = (DBNull)reader[4];
 
-                        Console.WriteLine($"Found user: {userName}; {userSurname}, {userTelephoneNumbername}, {userEmail}.");
+                            Console.WriteLine($"Found user: {userName}; {userSurname}, {userTelephoneNumbername}, {userEmail}.");
+                        }
                     }
+                    else
+                    { Console.WriteLine("Didn't find such user according to the entered parameters. Keep searcing!"); }
                 }
                 conn.Close();
 
@@ -65,7 +70,7 @@ namespace BG_library.Services
             catch (MySqlException e)
             {
                 Console.WriteLine(e.Message);
-                
+
             }
         }
     }
